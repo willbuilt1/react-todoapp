@@ -1,15 +1,18 @@
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
 
 const NewTodoForm = (props) => {
-  const [newTodo, setNewTodo] = useState("Test");
+  const [newTodo, setNewTodo] = useState({});
 
   const handleChange = (e) => {
-    setNewTodo(e.target.value);
+    setNewTodo({ desc: e.target.value });
   };
 
   const addTodo = (e) => {
     e.preventDefault();
-    props.addTodo(newTodo);
+    const withID = { ...newTodo, id: uuid() };
+    props.addTodo(withID);
+    setNewTodo({ desc: "" });
   };
   return (
     <form onSubmit={addTodo}>
@@ -18,7 +21,7 @@ const NewTodoForm = (props) => {
         type="text"
         id="newTodo"
         name="newTodo"
-        value={newTodo}
+        value={newTodo.desc}
         onChange={handleChange}
       />
       <button>Add Todo</button>

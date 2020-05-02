@@ -9,7 +9,18 @@ function TodoList() {
     setTodos([...todos, todo]);
   };
 
-  const displayTodos = todos.map((todo) => <Todo todo={todo} />);
+  const removeTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  const displayTodos = todos.map((todo) => (
+    <Todo
+      key={todo.id}
+      id={todo.id}
+      todo={todo.desc}
+      remove={() => removeTodo(todo.id)}
+    />
+  ));
 
   return (
     <div>
