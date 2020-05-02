@@ -9,6 +9,18 @@ function TodoList() {
     setTodos([...todos, todo]);
   };
 
+  const editTodo = (id, newText) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.desc = newText;
+        return todo;
+      } else {
+        return todo;
+      }
+    });
+    setTodos(updatedTodos);
+  };
+
   const removeTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
@@ -18,7 +30,8 @@ function TodoList() {
       key={todo.id}
       id={todo.id}
       todo={todo.desc}
-      remove={() => removeTodo(todo.id)}
+      remove={removeTodo}
+      edit={editTodo}
     />
   ));
 
